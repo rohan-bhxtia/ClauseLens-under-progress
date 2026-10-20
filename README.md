@@ -1,4 +1,4 @@
-# ClauseLens ( under progress )
+# ClauseLens
 
 > 🚧 **Building in public. Started on October 20, 2026.**
 > I'm building this project in the open, one day at a time. Follow along in [PROGRESS.md](PROGRESS.md).
