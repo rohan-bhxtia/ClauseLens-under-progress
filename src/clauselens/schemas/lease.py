@@ -1,56 +1,32 @@
-from typing import Generic, Literal, TypeVar
+from typing import Literal, Generic, TypeVar
+from pydantic import BaseModel, model_validator
 
-from pydantic import BaseModel, ConfigDict, model_validator
-
-# ---------- Answer shapes ----------
-# Some answers have two parts, like "60 days" or "5% on renewal".
-
-class Duration(BaseModel):
-    amount: int
-    unit: Literal["days", "months", "years"]   # only these 3 words allowed
-
-class RentIncrease(BaseModel):
-    percent: float
-    when: Literal["every_year", "on_renewal", "conditional"]
-
-class Maintenance(BaseModel):
-    amount: int
-    payer: Literal["tenant", "landlord", "shared"]
-
-
-# ---------- One fact ----------
-# T is a placeholder. Fact[int] means "a fact whose answer is a number",
-# Fact[Duration] means "a fact whose answer is like 60 days".
 T = TypeVar("T")
 
 class Fact(BaseModel, Generic[T]):
-    status: Literal["found", "not_stated", "unclear"]
+    status: Literal["found","not_stated","unclear"]
     answer: T | None = None
-    line: str | None = None
+    line: str | None = None # the actual text itself 
     page: int | None = None
 
-    @model_validator(mode="after")      # runs after the fields are filled
+    @model_validator(mode="after")
     def check_rules(self):
         if self.status == "found":
             if self.answer is None or self.line is None or self.page is None:
-                raise ValueError("found needs answer, line and page")
+                raise ValueError("Found facts need answer, line, and page")
+
         if self.status == "not_stated":
-            # TODO 2: if answer or line is NOT None → raise ValueError("not_stated must be empty")
-            pass
+            if self.answer is not None or self.line is not None:
+                raise ValueError(" Non - stated facts must have no answer or line")
+
         if self.status == "unclear":
-            # TODO 3: answer must be None, and line must NOT be None
-            pass
+            if self.answer is not None or self.line is None or self.page is None:
+                raise ValueError(" Unclear facts need no answer but must have page and line as evidence for unclearness")    
+
         return self
 
-
-# ---------- The full answer sheet for one lease ----------
 class LeaseFacts(BaseModel):
-    model_config = ConfigDict(extra="forbid")   # a typo like "tennant_notice" → error
-
     doc_id: str
-    agreement_type: Fact[Literal["rent", "leave_and_licence"]]
-    monthly_rent: Fact[int]
-    security_deposit: Fact[int]
-    # TODO 4: add the other 12 facts. Use the names from your JSON files.
-    # Pick the type for each: int, bool, Duration, RentIncrease, Maintenance,
-    # or Literal["tenant", "landlord", "both"] for lock_in_applies_to. 
+    monthly_rent: int
+    security_deposit: int
+    agreement_type: Literal["rent","leave_and_license"]
