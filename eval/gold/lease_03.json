@@ -1,0 +1,99 @@
+{
+  "doc_id": "lease_03",
+  "agreement_type": {
+    "status": "found",
+    "answer": "rent",
+    "line": "RESIDENTIAL TENANCY AGREEMENT",
+    "page": 1
+  },
+  "monthly_rent": {
+    "status": "found",
+    "answer": 28500,
+    "line": "The Tenant shall pay ₹28,500 per month in advance on or before the seventh day of each month.",
+    "page": 1
+  },
+  "security_deposit": {
+    "status": "found",
+    "answer": 85500,
+    "line": "The Tenant shall pay ₹85,500 as a refundable, interest-free security deposit, equal to three months of rent.",
+    "page": 1
+  },
+  "total_length": {
+    "status": "found",
+    "answer": {
+      "amount": 11,
+      "unit": "months"
+    },
+    "line": "The tenancy begins on 1 November 2026 for an initial term of eleven months, ending on 30 September 2027.",
+    "page": 1
+  },
+  "lock_in": {
+    "status": "not_stated"
+  },
+  "lock_in_applies_to": {
+    "status": "not_stated"
+  },
+  "tenant_notice": {
+    "status": "found",
+    "answer": {
+      "amount": 30,
+      "unit": "days"
+    },
+    "line": "The Tenant may terminate this Agreement at any time by giving thirty days’ written notice to the Landlord.",
+    "page": 1
+  },
+  "landlord_notice": {
+    "status": "unclear",
+    "answer": null,
+    "line": "Clause 7B: Notwithstanding Clause 7A, the Landlord may terminate this Agreement for convenience only by giving ninety days’ written notice.",
+    "page": 1
+  },
+  "tenant_can_leave_early": {
+    "status": "found",
+    "answer": true,
+    "line": "The Tenant may terminate this Agreement at any time by giving thirty days’ written notice to the Landlord.",
+    "page": 1
+  },
+  "landlord_can_end_early": {
+    "status": "found",
+    "answer": true,
+    "line": "Clause 7A: The Landlord may terminate this Agreement for convenience by giving sixty days’ written notice.",
+    "page": 1
+  },
+  "rent_increase": {
+    "status": "found",
+    "answer": {
+      "percent": 6,
+      "when": "on_renewal"
+    },
+    "line": "If the Parties sign a renewal, rent shall increase by six percent from the first day of the renewed term",
+    "page": 2
+  },
+  "maintenance": {
+    "status": "found",
+    "answer": {
+      "amount": 1800,
+      "payer": "shared"
+    },
+    "line": "Monthly common-area maintenance of ₹1,800 shall be shared equally: ₹900 paid by the Landlord and ₹900 paid by the Tenant.",
+    "page": 2
+  },
+  "deposit_refund_time": {
+    "status": "found",
+    "answer": {
+      "amount": 21,
+      "unit": "days"
+    },
+    "line": "The Landlord shall refund the remaining deposit within twenty-one days after the Tenant vacates",
+    "page": 1
+  },
+  "auto_renewal": {
+    "status": "found",
+    "answer": false,
+    "line": "Any renewal must be signed by both Parties.",
+    "page": 1
+  },
+  "late_fee": {
+    "status": "not_stated"
+  }
+}

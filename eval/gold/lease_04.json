@@ -1,0 +1,90 @@
+{
+  "doc_id": "lease_04",
+  "agreement_type": {
+    "status": "found",
+    "answer": "rent",
+    "line": "RESIDENTIAL RENTAL AGREEMENT",
+    "page": 1
+  },
+  "monthly_rent": {
+    "status": "found",
+    "answer": 30000,
+    "line": "Monthly rent is ₹30,000, payable on or before the fifth day of each month.",
+    "page": 1
+  },
+  "security_deposit": {
+    "status": "found",
+    "answer": 90000,
+    "line": "The Tenant shall pay ₹90,000, equal to three months of rent, as an interest-free refundable security deposit.",
+    "page": 1
+  },
+  "total_length": {
+    "status": "found",
+    "answer": {
+      "amount": 12,
+      "unit": "months"
+    },
+    "line": "The initial term starts on 1 October 2026 and ends on 30 September 2027.",
+    "page": 1
+  },
+  "lock_in": {
+    "status": "not_stated"
+  },
+  "lock_in_applies_to": {
+    "status": "not_stated"
+  },
+  "tenant_notice": {
+    "status": "found",
+    "answer": {
+      "amount": 60,
+      "unit": "days"
+    },
+    "line": "The Tenant may request early termination by giving sixty days’ written notice",
+    "page": 1
+  },
+  "landlord_notice": {
+    "status": "not_stated"
+  },
+  "tenant_can_leave_early": {
+    "status": "found",
+    "answer": true,
+    "line": "The Tenant may request early termination by giving sixty days’ written notice",
+    "page": 1
+  },
+  "landlord_can_end_early": {
+    "status": "found",
+    "answer": false,
+    "line": "The Landlord may seek termination for material breach after written notice and subject to applicable law.",
+    "page": 1
+  },
+  "rent_increase": {
+    "status": "found",
+    "answer": {
+      "percent": 7,
+      "when": "on_renewal"
+    },
+    "line": "On each renewal anniversary, monthly rent increases by seven percent over the rent payable immediately before renewal.",
+    "page": 1
+  },
+  "maintenance": {
+    "status": "found",
+    "answer": {
+      "amount": 1200,
+      "payer": "tenant"
+    },
+    "line": "Garden maintenance of ₹1,200 per month shall be paid by the Tenant.",
+    "page": 2
+  },
+  "deposit_refund_time": {
+    "status": "not_stated"
+  },
+  "auto_renewal": {
+    "status": "found",
+    "answer": true,
+    "line": "At the end of the initial term, this Agreement automatically renews for successive twelve-month periods unless the Landlord gives written notice of non-renewal at least ninety days before the end of the current term.",
+    "page": 1
+  },
+  "late_fee": {
+    "status": "not_stated"
+  }
+}

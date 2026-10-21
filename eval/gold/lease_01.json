@@ -1,0 +1,102 @@
+{
+  "doc_id": "lease_01",
+  "agreement_type": {
+    "status": "found",
+    "answer": "rent",
+    "line": "RESIDENTIAL RENTAL AGREEMENT",
+    "page": 1
+  },
+  "monthly_rent": {
+    "status": "found",
+    "answer": 25000,
+    "line": "The Tenant shall pay monthly rent of ₹25,000 (Rupees Twenty-Five Thousand only)",
+    "page": 1
+  },
+  "security_deposit": {
+    "status": "found",
+    "answer": 75000,
+    "line": "On signing, the Tenant shall pay an interest-free refundable security deposit of ₹75,000, equal to three months of the monthly rent.",
+    "page": 1
+  },
+  "total_length": {
+    "status": "found",
+    "answer": {
+      "amount": 12,
+      "unit": "months"
+    },
+    "line": "The tenancy begins on 1 October 2026 and ends on 30 September 2027, a fixed term of twelve months",
+    "page": 1
+  },
+  "lock_in": {
+    "status": "not_stated"
+  },
+  "lock_in_applies_to": {
+    "status": "not_stated"
+  },
+  "tenant_notice": {
+    "status": "found",
+    "answer": {
+      "amount": 60,
+      "unit": "days"
+    },
+    "line": "Either Party may terminate this Agreement by giving sixty days’ written notice.",
+    "page": 2
+  },
+  "landlord_notice": {
+    "status": "found",
+    "answer": {
+      "amount": 60,
+      "unit": "days"
+    },
+    "line": "Either Party may terminate this Agreement by giving sixty days’ written notice.",
+    "page": 2
+  },
+  "tenant_can_leave_early": {
+    "status": "found",
+    "answer": true,
+    "line": "The Tenant may leave before the fixed term ends by giving the same notice and paying rent through the notice period",
+    "page": 2
+  },
+  "landlord_can_end_early": {
+    "status": "found",
+    "answer": true,
+    "line": "Either Party may terminate this Agreement by giving sixty days’ written notice.",
+    "page": 2
+  },
+  "rent_increase": {
+    "status": "found",
+    "answer": {
+      "percent": 5,
+      "when": "on_renewal"
+    },
+    "line": "If the Parties renew the tenancy for a further term, the monthly rent will increase by five percent from the first day of the renewed term",
+    "page": 2
+  },
+  "maintenance": {
+    "status": "found",
+    "answer": {
+      "amount": 2000,
+      "payer": "landlord"
+    },
+    "line": "Monthly building maintenance of ₹2,000 shall be paid by the Landlord.",
+    "page": 2
+  },
+  "deposit_refund_time": {
+    "status": "found",
+    "answer": {
+      "amount": 15,
+      "unit": "days"
+    },
+    "line": "Within fifteen calendar days after the Tenant returns vacant possession and all keys, the Landlord shall refund the balance of the deposit.",
+    "page": 1
+  },
+  "auto_renewal": {
+    "status": "found",
+    "answer": false,
+    "line": "Any extension must be recorded in a written document signed by both Parties; continued discussions alone do not create a renewal.",
+    "page": 1
+  },
+  "late_fee": {
+    "status": "not_stated"
+  }
+}

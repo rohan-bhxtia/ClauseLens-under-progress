@@ -1,0 +1,108 @@
+{
+  "doc_id": "lease_02",
+  "agreement_type": {
+    "status": "found",
+    "answer": "leave_and_licence",
+    "line": "The monthly licence fee/rent is ₹32,000",
+    "page": 1
+  },
+  "monthly_rent": {
+    "status": "found",
+    "answer": 32000,
+    "line": "The monthly licence fee/rent is ₹32,000, payable in advance by the third day of each month by electronic transfer.",
+    "page": 1
+  },
+  "security_deposit": {
+    "status": "found",
+    "answer": 192000,
+    "line": "The Occupant shall pay a refundable, interest-free security deposit of ₹1,92,000, equal to six months of the monthly fee, before receiving keys.",
+    "page": 1
+  },
+  "total_length": {
+    "status": "found",
+    "answer": {
+      "amount": 24,
+      "unit": "months"
+    },
+    "line": "The term begins on 1 November 2026 and continues until 31 October 2028, for twenty-four months.",
+    "page": 1
+  },
+  "lock_in": {
+    "status": "found",
+    "answer": {
+      "amount": 18,
+      "unit": "months"
+    },
+    "line": "The first eighteen months are a lock-in period binding on both parties.",
+    "page": 1
+  },
+  "lock_in_applies_to": {
+    "status": "found",
+    "answer": "both",
+    "line": "The first eighteen months are a lock-in period binding on both parties.",
+    "page": 1
+  },
+  "tenant_notice": {
+    "status": "found",
+    "answer": {
+      "amount": 90,
+      "unit": "days"
+    },
+    "line": "After the eighteen-month lock-in expires, either Party may terminate by giving ninety days’ written notice.",
+    "page": 2
+  },
+  "landlord_notice": {
+    "status": "found",
+    "answer": {
+      "amount": 90,
+      "unit": "days"
+    },
+    "line": "After the eighteen-month lock-in expires, either Party may terminate by giving ninety days’ written notice.",
+    "page": 2
+  },
+  "tenant_can_leave_early": {
+    "status": "found",
+    "answer": true,
+    "line": "After the eighteen-month lock-in expires, either Party may terminate by giving ninety days’ written notice.",
+    "page": 2
+  },
+  "landlord_can_end_early": {
+    "status": "found",
+    "answer": true,
+    "line": "After the eighteen-month lock-in expires, either Party may terminate by giving ninety days’ written notice.",
+    "page": 2
+  },
+  "rent_increase": {
+    "status": "found",
+    "answer": {
+      "percent": 8,
+      "when": "every_year"
+    },
+    "line": "On each anniversary of the commencement date, the monthly fee increases by eight percent over the amount payable immediately before that anniversary.",
+    "page": 2
+  },
+  "maintenance": {
+    "status": "found",
+    "answer": {
+      "amount": 2500,
+      "payer": "tenant"
+    },
+    "line": "A monthly society service charge of ₹2,500 is payable by the Occupant in addition to the monthly fee.",
+    "page": 2
+  },
+  "deposit_refund_time": {
+    "status": "found",
+    "answer": {
+      "amount": 30,
+      "unit": "days"
+    },
+    "line": "Within thirty calendar days after vacant possession, return of keys, and settlement of known charges, the Owner shall provide a written account of deductions and refund the undisputed balance.",
+    "page": 1
+  },
+  "auto_renewal": {
+    "status": "not_stated"
+  },
+  "late_fee": {
+    "status": "not_stated"
+  }
+}

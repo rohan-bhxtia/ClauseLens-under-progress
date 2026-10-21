@@ -1,0 +1,78 @@
+{
+  "doc_id": "lease_05",
+  "agreement_type": {
+    "status": "found",
+    "answer": "rent",
+    "line": "RESIDENTIAL RENTAL AGREEMENT",
+    "page": 1
+  },
+  "monthly_rent": {
+    "status": "found",
+    "answer": 22000,
+    "line": "Monthly rent is ₹22,000, payable in advance on or before the tenth day of each month.",
+    "page": 1
+  },
+  "security_deposit": {
+    "status": "found",
+    "answer": 66000,
+    "line": "The Tenant shall pay a refundable security deposit of ₹66,000, equal to three months of the stated monthly rent.",
+    "page": 1
+  },
+  "total_length": {
+    "status": "found",
+    "answer": {
+      "amount": 12,
+      "unit": "months"
+    },
+    "line": "The tenancy commences on 1 November 2026 and ends on 31 October 2027.",
+    "page": 1
+  },
+  "lock_in": {
+    "status": "not_stated"
+  },
+  "lock_in_applies_to": {
+    "status": "not_stated"
+  },
+  "tenant_notice": {
+    "status": "not_stated"
+  },
+  "landlord_notice": {
+    "status": "not_stated"
+  },
+  "tenant_can_leave_early": {
+    "status": "found",
+    "answer": true,
+    "line": "Either Party may request termination by written notice.",
+    "page": 1
+  },
+  "landlord_can_end_early": {
+    "status": "found",
+    "answer": true,
+    "line": "Either Party may request termination by written notice.",
+    "page": 1
+  },
+  "rent_increase": {
+    "status": "found",
+    "answer": {
+      "percent": 5,
+      "when": "conditional"
+    },
+    "line": "The monthly rent may increase by five percent if the building’s annual maintenance costs rise by more than ten percent",
+    "page": 1
+  },
+  "maintenance": {
+    "status": "not_stated"
+  },
+  "deposit_refund_time": {
+    "status": "not_stated"
+  },
+  "auto_renewal": {
+    "status": "found",
+    "answer": false,
+    "line": "Renewal requires written agreement.",
+    "page": 1
+  },
+  "late_fee": {
+    "status": "not_stated"
+  }
+}
