@@ -1,7 +1,7 @@
 [project]
-name = "clens"
+name = "clauselens"
 version = "0.1.0"
-description = "Add your description here"
+description = "AI-powered contract intelligence: extract, explain, and cite key lease terms."
 readme = "README.md"
 authors = [
     { name = "Rohan", email = "rohanbhatia003@gmail.com" }
@@ -9,11 +9,10 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "pydantic>=2.14.1",
-    "pytest>=9.1.1",
 ]
 
 [project.scripts]
-clens = "clens:main"
+clauselens = "clauselens:main"
 
 [build-system]
 requires = ["uv_build>=0.13.3,<0.14.0"]

@@ -12,12 +12,11 @@ wheels = [
 ]
 
 [[package]]
-name = "clens"
+name = "clauselens"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
-    { name = "pytest" },
 ]
 
 [package.dev-dependencies]
@@ -26,10 +25,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "pydantic", specifier = ">=2.14.1" },
-    { name = "pytest", specifier = ">=9.1.1" },
-]
+requires-dist = [{ name = "pydantic", specifier = ">=2.14.1" }]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=9.1.1" }]
