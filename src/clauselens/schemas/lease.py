@@ -1,5 +1,5 @@
 from typing import Literal, Generic, TypeVar
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, model_validator , ConfigDict
 
 class Duration(BaseModel):
     amount: int
@@ -38,8 +38,9 @@ class Fact(BaseModel, Generic[T]):
         return self
 
 class LeaseFacts(BaseModel):
+    model_config = ConfigDict(extra="forbid")
     doc_id: str
-
+    
     agreement_type: Fact[Literal["rent", "leave_and_license"]]
     monthly_rent: Fact[int]
     security_deposit: Fact[int]
