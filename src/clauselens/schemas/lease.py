@@ -41,7 +41,7 @@ class LeaseFacts(BaseModel):
     model_config = ConfigDict(extra="forbid")
     doc_id: str
     
-    agreement_type: Fact[Literal["rent", "leave_and_license"]]
+    agreement_type: Fact[Literal["rent", "leave_and_licence"]]
     monthly_rent: Fact[int]
     security_deposit: Fact[int]
     total_length: Fact[Duration]
