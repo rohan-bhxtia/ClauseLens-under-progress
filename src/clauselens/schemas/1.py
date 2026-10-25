@@ -1,14 +1,17 @@
-import os
-from dotenv import load_dotenv
-from google import genai
 
-load_dotenv()
+from pathlib import Path
+from docling.document_converter import DocumentConverter
 
-client = genai.Client(api_key=os.getenv("gemini_api_key"))
+converter = DocumentConverter()
 
-response = client.models.generate_content(
-    model="gemini-3.1-flash-lite",
-    contents="What is an LLM? Explain in two sentences."
-)
+for number in range(1, 6):
+    pdf = f"data/raw/lease_{number:02d}.pdf"
+    output = Path(f"scratch/lease_{number:02d}_raw.md")
 
-print(response.text)
+    result = converter.convert(pdf)
+    text = result.document.export_to_markdown()
+
+    output.parent.mkdir(exist_ok=True)
+    output.write_text(text, encoding="utf-8")
+
+    print(f"Saved {output}")

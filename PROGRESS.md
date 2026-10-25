@@ -43,4 +43,26 @@ Decisions:
 
 Build days used: 1 of 13 (took 6 calendar days — mostly learning setup concepts)
 
-## Day 2 — next: LLM Router
+## Day 2 — IN PROGRESS (2026-10-24 → 2026-10-25)
+
+Built:
+- Added Gemini (`google-genai`) + `python-dotenv` + `docling` to the project
+- First Gemini call works (one prompt in, one answer out) — `gemini-3.1-flash-lite`, key read from `.env`
+- `scripts/peek_raw.py` — turns the 5 lease PDFs into text with Docling, saves to `scratch/lease_01..05_raw.md`
+
+Found:
+- Docling reads the leases cleanly: headings, clause numbers and paragraphs all come through
+- ₹ symbol now comes out as "n" (e.g. "n32,000") instead of "■" → still needs fixing on Day 3
+- Started on Day 3 work (PDF reading) before finishing Day 2 (LLM Router)
+
+Loose ends:
+- `src/clauselens/schemas/1.py` is a scratch test file — it holds a copy of the PDF script (with the wrong path `data/raw/`; PDFs are in `data/`). Adding `1.py` to `.gitignore` does nothing because git already tracks it → delete it, or `git rm --cached` it
+- `scratch/` is not in `.gitignore` yet — decide whether to commit the raw text files
+
+Still to do for Day 2 (LLM Router):
+- Retry when Gemini fails
+- Backup model when the main one is down
+- Save answers so the same question is not paid for twice
+- Cost log for every call
+
+## Day 3 — next: Read PDF + split into clauses
