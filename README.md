@@ -14,6 +14,7 @@ answer came from, and flags risky clauses.
 Working so far:
 - 15 key lease questions defined, with hand-checked answers for 5 test leases
 - PDF reading with page numbers (Docling), including a fix for the ₹ symbol
+- Text normalising (spaces, curly quotes) so quoted lines can be matched against the PDF
 - Splitting a lease into numbered clauses, each with its title and starting page
 
 Next: a reliable Gemini connection (retry, backup model, saved answers, cost log).

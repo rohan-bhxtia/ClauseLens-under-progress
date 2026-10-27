@@ -1,6 +1,6 @@
+# grouping the blocks made in parser
 
 import re
-
 from clauselens.ingest.parser import parse_pdf
 from clauselens.schemas.clause import Block_format, Clause_format
 

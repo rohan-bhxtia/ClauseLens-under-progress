@@ -1,4 +1,5 @@
 # to correct things in our lease texts .. found by peek_raw.py script
+# to make blocks of our data
 
 import re 
 from docling.document_converter import DocumentConverter
@@ -42,4 +43,14 @@ def parse_pdf(path:str) -> list[Block_format]:
 
     return blocks    
 
+# to keep whitespace and quotation marks for reliable text comparison whenever we do that comparison 
+def normalize(text: str) -> str:
+    """Normalize text for comparison only; don't alter displayed text."""
+    # Replace multiple spaces, tabs, and newlines with one space
+    text = re.sub(r"\s+", " ", text)
 
+    # Standardize curly apostrophes and quotation marks
+    text = text.replace("’", "'").replace("‘", "'")
+    text = text.replace("“", '"').replace("”", '"')
+
+    return text.strip()

@@ -53,12 +53,12 @@ Built:
 - `scripts/peek_raw.py` — turns the 5 lease PDFs into text with Docling (output in `scratch/`, not committed)
 - `scripts/peek_items.py` — shows how Docling labels each piece of text and which page it is on
 - `src/clauselens/schemas/clause.py` — `Block_format` (one piece of text + page) and `Clause_format` (number, title, text, page)
-- `src/clauselens/ingest/parser.py` — `parse_pdf()` turns a PDF into blocks with page numbers; `clean_text()` fixes ₹ and `\_`
+- `src/clauselens/ingest/parser.py` — `parse_pdf()` turns a PDF into blocks with page numbers; `clean_text()` fixes ₹ and `\_`; `normalize()` evens out spaces and curly quotes so text can be compared (used only for comparing, never changes what is shown)
 - `src/clauselens/ingest/chunker.py` — `groupBlocks_toClauses()` groups blocks into clauses at each heading; text before the first heading becomes "Preamble"; a clause keeps the page it starts on
 - `scripts/realPass_chunker.py` — runs the chunker on leases 02–05 and checks the clause count
-- Tests: `tests/unit/test_ingest.py` (parser) + `tests/unit/test_chunker.py` (numbered heading, heading without number, clause over two pages)
+- Tests: `tests/unit/test_parser.py` (parser + 9 `normalize()` cases; renamed from `test_ingest.py`) + `tests/unit/test_chunker.py` (numbered heading, heading without number, clause over two pages)
 
-Test results: 18 passed. Real PDFs: lease_02 = 17, lease_03 = 18, lease_04 = 17, lease_05 = 18 clauses — all match.
+Test results: 27 passed. Real PDFs: lease_02 = 17, lease_03 = 18, lease_04 = 17, lease_05 = 18 clauses — all match.
 
 Found:
 - Docling reads the leases cleanly: headings, clause numbers and paragraphs all come through
