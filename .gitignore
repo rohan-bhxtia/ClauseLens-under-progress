@@ -4,3 +4,4 @@ __pycache__/
 .env
 .pytest_cache/
 1.py
+scratch

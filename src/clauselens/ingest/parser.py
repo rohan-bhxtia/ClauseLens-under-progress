@@ -31,15 +31,15 @@ def parse_pdf(path:str) -> list[Block_format]:
 
         page = item.prov[0].page_no
 
-        block = Block_format(
+        block_mapping = Block_format(
             label = str(item.label),
             text = clean_text(text),
             page = page,
         )
 
 
-        blocks.append(block)
-        
+        blocks.append(block_mapping)
+
     return blocks    
 
 
