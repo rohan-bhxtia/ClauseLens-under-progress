@@ -71,10 +71,26 @@ Cleaned up:
 
 Build days used: 2 of 13
 
-## Day 3 — next: LLM Router (moved from Day 2)
+## Day 3 — IN PROGRESS (2026-10-28 → ): LLM Router (moved from Day 2)
 
-- Retry when Gemini fails
-- Backup model when the main one is down
-- Save answers so the same question is not paid for twice
+Built so far:
+- `src/clauselens/config.py` — `Settings` reads the Gemini key and options from `.env` (pydantic-settings): main model `gemini-3.1-flash-lite`, backup model `gemini-3.5-flash-lite`, retry count and wait times, request timeout, cache folder. `get_settings()` loads them once and reuses them
+- `src/clauselens/llm/router.py`:
+  - `LLMResult` — what we keep from each call: text, model, input / output / thinking tokens, time taken
+  - `make_client()` — Gemini client with a timeout; the SDK's own retries are turned off so ours are the only ones
+  - `call_gemini()` — one call; an empty answer counts as an error, not a success
+  - `call_with_retry()` — retries temporary errors (429, 500, 503, 504), waiting 2, 4, 8… seconds (max 60), up to 4 retries
+  - `call_with_fallback()` — tries the main model first; if it still fails after retries, or the model name is wrong (404), tries the backup model
+- `scripts/try_router.py` — manual check: backup model on its own, normal call, and a forced switch to the backup using a fake model name
+
+Test results: 27 passed (no automatic tests for the router yet)
+
+Still to do for Day 3:
+- Save answers so the same question is not paid for twice (`cache_dir` setting is ready, not used yet)
 - Cost log for every call
-- Day 3's PDF + clause work is mostly done; check lease_01 clause count too
+- Unit tests for the router with a fake Gemini (no real API calls)
+- Check lease_01 clause count (carried from Day 2)
+
+Found:
+- `pydantic-settings` is used in `config.py` but isn't listed in `pyproject.toml`; it only works because Docling installs it → add it with `uv add pydantic-settings`
+- A 404 (wrong model name) never gets better with retries, so it goes straight to the backup model

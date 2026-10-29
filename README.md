@@ -9,15 +9,17 @@ answer came from, and flags risky clauses.
 > Informational only. Not legal advice.
 
 ## Status
-🚧 In progress. Day 2 of 10 done.
+🚧 In progress. Day 2 of 10 done, Day 3 underway.
 
 Working so far:
 - 15 key lease questions defined, with hand-checked answers for 5 test leases
 - PDF reading with page numbers (Docling), including a fix for the ₹ symbol
 - Text normalising (spaces, curly quotes) so quoted lines can be matched against the PDF
 - Splitting a lease into numbered clauses, each with its title and starting page
+- Settings loaded from `.env` (API key, models, retry options)
+- Gemini connection that retries temporary errors and switches to a backup model if the main one fails
 
-Next: a reliable Gemini connection (retry, backup model, saved answers, cost log).
+Next: save answers so repeat questions are free, log the cost of every call, and add router tests.
 
 Day-by-day log: [PROGRESS.md](PROGRESS.md)
 
