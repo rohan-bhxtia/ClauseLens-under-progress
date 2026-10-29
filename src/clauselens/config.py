@@ -28,11 +28,12 @@ class Settings(BaseSettings):
     retry_max_wait_s: float = Field(default=60.0, gt=0)
     request_timeout_s: float = Field(default=60.0, gt=0)
 
+
     # Cache and call-log directory (used in later steps)
     cache_dir: Path = Path(".cache")
 
 
 @lru_cache
-def get_settings() -> Settings:
-    """Load settings once and reuse them."""
-    return Settings()
+def get_settings():
+    setting_object = Settings()
+    return setting_object

@@ -1,4 +1,4 @@
-# grouping the blocks made in parser
+# grouping the blocks to clause made in parser
 
 import re
 from clauselens.ingest.parser import parse_pdf
