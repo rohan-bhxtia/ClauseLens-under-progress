@@ -20,7 +20,7 @@ class EmptyResponseError(Exception):
 # Result type
 # ---------------------------------------------------------------------------
 
-@dataclass(frozen=True)
+@dataclass(frozen=True) # just to avoid that __init__ shit, we use dataclass
 class LLMResult:
     """Everything we keep from one Gemini call."""
     text: str
