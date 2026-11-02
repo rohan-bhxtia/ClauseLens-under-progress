@@ -1,7 +1,8 @@
 """Gemini access. Step 3: basic retries."""
 
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
+from clauselens.llm.cache import ResponseCache
 
 from google import genai
 from google.genai import errors, types
@@ -115,27 +116,41 @@ def call_gemini(
 # Retry logic
 # ---------------------------------------------------------------------------
 
-def call_with_retry(client, settings, model, prompt, system_instruction=None):
-    """Retry temporary Gemini API errors with increasing waits."""
+def call_with_retry(
+        client, settings, model, prompt, cache, system_instruction=None
+):
+    """Check cache first, then call Gemini with retries if needed."""
+
+    key = cache.make_key(model, prompt, system_instruction)
+
+    cached_data = cache.get(key)
+
+    if cached_data is not None:
+        print("Cache hit!")
+        return LLMResult(**cached_data)
+
+    print("Cache miss! Calling Gemini...")
 
     for attempt in range(settings.max_retries + 1):
         try:
-            return call_gemini(
+            result = call_gemini(
                 client,
                 model,
                 prompt,
                 system_instruction,
             )
 
+            cache.put(key, asdict(result))
+
+            return result
+
         except errors.APIError as exc:
-            # Stop if the error is not retryable or attempts are exhausted.
             if (
                 exc.code not in RETRYABLE_CODES
                 or attempt == settings.max_retries
             ):
                 raise
 
-            # Wait 2, 4, 8... seconds, respecting the configured maximum.
             wait_seconds = min(
                 settings.retry_max_wait_s,
                 settings.retry_base_wait_s * (2 ** attempt),
@@ -143,10 +158,7 @@ def call_with_retry(client, settings, model, prompt, system_instruction=None):
 
             time.sleep(wait_seconds)
 
-            
-
     raise AssertionError("Retry loop exited unexpectedly")
-
 
 
 # ---------------------------------------------------------------------------
