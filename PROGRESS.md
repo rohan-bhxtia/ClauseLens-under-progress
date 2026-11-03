@@ -7,8 +7,8 @@ Started: 2026-10-19 · Plan: 10 build days + 3 buffer days (counting build days,
 | Version | Day | What you can do with it |
 |---|---|---|
 | v0.1 | 1 | 15 questions in code + checked answers (gold) for 5 leases + tests |
-| v0.2 | 2 | Talk to Gemini reliably (retry, backup model, saved answers, cost log) |
-| v0.3 | 3 | Read a PDF and split it into clauses with page numbers |
+| v0.2 | 2 | Read PDFs and split them into clauses with page numbers |
+| v0.3 | 3 | Talk to Gemini reliably (retry, backup model, response cache) |
 | v0.4 | 4 | Find the right clauses for a question (accuracy measured) |
 | v0.5 | 5 | AI fills the 15 facts; each checked against the PDF; first accuracy number |
 | v0.6 | 6 | Classifier (is this a lease?) + risk checks + human review of unsure answers |
@@ -27,10 +27,10 @@ Built:
 - `tests/test_lease.py` — gold files valid + checker rejects broken data
 - First git commit
 
-Test results: all tests passed (run by Rohan on his Mac)
+Test results: all tests passed.
 
 Found:
-- ₹ symbol extracts as "■" from these PDFs → handle on Day 3
+- ₹ symbol extracts incorrectly from some PDFs → handled on Day 2
 - Tests caught a real bug: "licence" vs "license" spelling mismatch
 - All 5 leases are GPT-made, clean style → add 3–5 real public templates later
 - `late_fee` is not_stated in all 5 leases → cannot be scored yet
@@ -39,58 +39,123 @@ Decisions:
 - Every fact = answer + exact line + page + status
 - v1 = leases only; other contract types = new schema file later
 - Cut from v1: deposit-deduction reasons list; names/addresses never extracted
-- Classifier (doc type) on Day 6 is separate from LLM Router (Day 2)
-
-Build days used: 1 of 13 (took 6 calendar days — mostly learning setup concepts)
+- Classifier (doc type) is separate from LLM Router
 
 ## Day 2 — DONE (2026-10-24 → 2026-10-27)
 
-Day 2 turned into the PDF-reading work planned for Day 3. The LLM Router (planned Day 2) moves to Day 3.
-
 Built:
-- Added Gemini (`google-genai`) + `python-dotenv` + `docling` to the project
-- First Gemini call works (one prompt in, one answer out) — `gemini-3.1-flash-lite`, key read from `.env`
-- `scripts/peek_raw.py` — turns the 5 lease PDFs into text with Docling (output in `scratch/`, not committed)
-- `scripts/peek_items.py` — shows how Docling labels each piece of text and which page it is on
-- `src/clauselens/schemas/clause.py` — `Block_format` (one piece of text + page) and `Clause_format` (number, title, text, page)
-- `src/clauselens/ingest/parser.py` — `parse_pdf()` turns a PDF into blocks with page numbers; `clean_text()` fixes ₹ and `\_`; `normalize()` evens out spaces and curly quotes so text can be compared (used only for comparing, never changes what is shown)
-- `src/clauselens/ingest/chunker.py` — `groupBlocks_toClauses()` groups blocks into clauses at each heading; text before the first heading becomes "Preamble"; a clause keeps the page it starts on
-- `scripts/realPass_chunker.py` — runs the chunker on leases 02–05 and checks the clause count
-- Tests: `tests/unit/test_parser.py` (parser + 9 `normalize()` cases; renamed from `test_ingest.py`) + `tests/unit/test_chunker.py` (numbered heading, heading without number, clause over two pages)
+- Added Gemini (`google-genai`), `python-dotenv` and `docling`
+- First Gemini API call works — `gemini-3.1-flash-lite`, key read from `.env`
+- `scripts/peek_raw.py` — converts lease PDFs into text with Docling
+- `scripts/peek_items.py` — inspects Docling labels and page numbers
+- `src/clauselens/schemas/clause.py` — `Block_format` and `Clause_format`
+- `src/clauselens/ingest/parser.py`:
+  - `parse_pdf()` converts PDFs into blocks with page numbers
+  - `clean_text()` fixes the corrupted rupee symbol and escaped underscores
+  - `normalize()` standardizes whitespace and quotation marks for comparisons only
+- `src/clauselens/ingest/chunker.py`:
+  - `groupBlocks_toClauses()` groups blocks at headings
+  - Text before the first heading becomes "Preamble"
+  - Each clause retains its starting page
+- `scripts/realPass_chunker.py` — runs the chunker on leases 02–05 and checks clause counts
+- Parser and chunker unit tests
 
-Test results: 27 passed. Real PDFs: lease_02 = 17, lease_03 = 18, lease_04 = 17, lease_05 = 18 clauses — all match.
+Real PDF results:
+- lease_02 = 17 clauses
+- lease_03 = 18 clauses
+- lease_04 = 17 clauses
+- lease_05 = 18 clauses
+- All matched the expected counts.
+
+Test results: 27 passed.
 
 Found:
-- Docling reads the leases cleanly: headings, clause numbers and paragraphs all come through
+- Docling reads headings, clause numbers and paragraphs correctly
 - ₹ came out as "n" (e.g. "n32,000") → fixed in `clean_text()`
-- Sub-clause numbers like "4.2" are stored as clause 4 (only the first number is kept)
+- Sub-clause identifiers are now preserved as strings (e.g. "2.1", "2.10", "2.1.3")
 
 Cleaned up:
 - `src/clauselens/schemas/1.py` deleted
-- `scratch/` removed from git (files stay on disk) and ignored; `.DS_Store` ignored too
+- `scratch/` removed from git and ignored; files remain on disk
+- `.DS_Store` ignored
 
-Build days used: 2 of 13
+## Day 3 — DONE (2026-10-28 → 2026-11-03): LLM Router
 
-## Day 3 — IN PROGRESS (2026-10-28 → ): LLM Router (moved from Day 2)
-
-Built so far:
-- `src/clauselens/config.py` — `Settings` reads the Gemini key and options from `.env` (pydantic-settings): main model `gemini-3.1-flash-lite`, backup model `gemini-3.5-flash-lite`, retry count and wait times, request timeout, cache folder. `get_settings()` loads them once and reuses them
+Built:
+- `src/clauselens/config.py`:
+  - `Settings` reads the Gemini key and options from `.env`
+  - Primary model: `gemini-3.1-flash-lite`
+  - Backup model: `gemini-3.5-flash-lite`
+  - Retry count, wait times, request timeout and cache directory
+  - `get_settings()` loads settings once and reuses them
 - `src/clauselens/llm/router.py`:
-  - `LLMResult` — what we keep from each call: text, model, input / output / thinking tokens, time taken
-  - `make_client()` — Gemini client with a timeout; the SDK's own retries are turned off so ours are the only ones
-  - `call_gemini()` — one call; an empty answer counts as an error, not a success
-  - `call_with_retry()` — retries temporary errors (429, 500, 503, 504), waiting 2, 4, 8… seconds (max 60), up to 4 retries
-  - `call_with_fallback()` — tries the main model first; if it still fails after retries, or the model name is wrong (404), tries the backup model
-- `scripts/try_router.py` — manual check: backup model on its own, normal call, and a forced switch to the backup using a fake model name
+  - `LLMResult` — stores response text, model, input/output/thought tokens and latency
+  - `make_client()` — creates the Gemini client with a timeout and disables SDK retries
+  - `call_gemini()` — makes one Gemini call and rejects empty responses
+  - `call_with_retry()` — checks the cache first, then retries temporary API failures
+  - `call_with_fallback()` — tries the primary model and switches to the backup when appropriate
+- `src/clauselens/llm/cache.py`:
+  - Creates a SHA-256 cache key from the model, prompt and system instruction
+  - Saves responses as JSON files
+  - Retrieves previously saved responses
+- `scripts/try_router.py` — manually checks the backup model, normal primary call and forced fallback
+- `tests/unit/test_router.py` — automated router tests using mocked Gemini responses
 
-Test results: 27 passed (no automatic tests for the router yet)
-
-Still to do for Day 3:
-- Save answers so the same question is not paid for twice (`cache_dir` setting is ready, not used yet)
-- Cost log for every call
-- Unit tests for the router with a fake Gemini (no real API calls)
-- Check lease_01 clause count (carried from Day 2)
+Test results:
+- 34 passed
+- 6 deprecation warnings from Docling/Pydantic dependencies
+- Router unit tests cover cache hits, cache writes, retries, non-retryable errors and fallback behaviour
+- Manual Gemini checks confirmed that both models work and the fallback path is reached
 
 Found:
-- `pydantic-settings` is used in `config.py` but isn't listed in `pyproject.toml`; it only works because Docling installs it → add it with `uv add pydantic-settings`
-- A 404 (wrong model name) never gets better with retries, so it goes straight to the backup model
+- SDK retries could multiply our own retries → disabled SDK retries
+- A 404 (invalid model name) cannot be fixed by retrying the same model → fallback handles it
+- Cache hits avoid repeating identical requests
+
+Decisions:
+- Stay on the Gemini free tier
+- No pricing configuration or cost logging in the router
+- Router remains separate from lease-specific extraction logic
+- Router unit tests use mocks; real Gemini calls are checked separately through `scripts/try_router.py`
+
+Build days used: 3 of 13
+
+## Day 4 — NEXT: Clause Retrieval
+
+Goal: Find the most relevant clauses for a given lease question and measure retrieval accuracy.
+
+Planned:
+- Define retrieval questions using the existing 15 lease facts
+- Build a simple clause retrieval baseline
+- Retrieve candidate clauses for each question
+- Compare retrieved clauses against the verified gold evidence
+- Measure retrieval accuracy before adding more complex retrieval methods
+
+## Day 5 — Structured Fact Extraction
+
+Goal: Use Gemini to extract the 15 lease facts from relevant clauses.
+
+Planned:
+- Connect the existing lease schema to the LLM Router
+- Send relevant clauses to Gemini
+- Extract each fact with its value, exact source quote, page and status
+- Validate the response using Pydantic
+- Compare extracted facts against the gold answers and calculate the first accuracy score
+
+## Remaining Days
+
+Day 6 — Lease classifier, risk checks and human review.
+
+Day 7 — Question answering with clause citations and backend API.
+
+Day 8 — Accuracy report, safety tests and personal-data protection.
+
+Day 9 — Web page and Docker.
+
+Day 10 — README, architecture diagram, measured results and demo.
+
+Days 11–13 — Buffer, catch-up and lease comparison.
+
+---
+
+**Current milestone:** PDF ingestion and Gemini Router are complete. Next is clause retrieval and its accuracy measurement, followed by structured fact extraction.
