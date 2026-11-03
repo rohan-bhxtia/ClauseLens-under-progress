@@ -57,8 +57,7 @@ def call_gemini(
     client: genai.Client,
     model: str,
     prompt: str,
-    system_instruction: str | None = None,
-) -> LLMResult:
+    system_instruction: str | None = None,) -> LLMResult:
     """Send one prompt to Gemini and return the result."""
 
     request_args = {}
