@@ -40,7 +40,7 @@ def groupBlocks_toClauses(blocks: list[Block_format]) -> list[Clause_format]:
             )
 
             if match:
-                current_number = int(match.group(1).split(".")[0])
+                current_number = match.group(1) if match else None
                 current_title = match.group(2).strip() or block.text.strip()
             else:
                 current_number = None

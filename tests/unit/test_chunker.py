@@ -19,10 +19,10 @@ def test_numbered_heading():
 
     # Check that two clauses were created with the right numbers and titles
     assert len(clauses) == 2
-    assert clauses[0].number == 1
+    assert clauses[0].number == "1"
     assert clauses[0].title == "PREMISES"
     assert "The property is in Delhi." in clauses[0].text
-    assert clauses[1].number == 2
+    assert clauses[1].number == "2"
     assert clauses[1].title == "RENT"
 
 

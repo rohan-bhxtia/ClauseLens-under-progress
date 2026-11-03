@@ -7,7 +7,7 @@ class Block_format(BaseModel):
 
 
 class Clause_format(BaseModel):
-    number: int| None
+    number: str| None
     title: str
     text: str
     page: int    

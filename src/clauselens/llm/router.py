@@ -174,7 +174,7 @@ def _should_fall_back(exc):
     return exc.code == 404 or exc.code in RETRYABLE_CODES
 
 
-def call_with_fallback(client, settings, prompt, system_instruction=None):
+def call_with_fallback(client, settings, prompt, cache, system_instruction=None):
     """Try the primary model first, then use the backup when appropriate."""
 
     try:
@@ -185,6 +185,7 @@ def call_with_fallback(client, settings, prompt, system_instruction=None):
             settings,
             settings.primary_model,
             prompt,
+            cache,
             system_instruction,
         )
 
@@ -208,5 +209,6 @@ def call_with_fallback(client, settings, prompt, system_instruction=None):
             settings,
             settings.backup_model,
             prompt,
+            cache,
             system_instruction,
         )

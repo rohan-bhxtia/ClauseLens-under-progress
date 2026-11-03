@@ -21,4 +21,4 @@ for number in range(1, 6):
 
 
 
-# we did found a bug .. rupees symbol is coming as a cube .. which we need to make fine 
+# we did found a bug .. rupees symbol is coming as "n" .. which we need to make fine 

@@ -1,6 +1,7 @@
 """Manual tests for Gemini retry and fallback."""
 
 from clauselens.config import get_settings
+from clauselens.llm.cache import ResponseCache
 from clauselens.llm.router import (
     call_gemini,
     call_with_fallback,
@@ -9,6 +10,7 @@ from clauselens.llm.router import (
 
 settings = get_settings()
 client = make_client(settings)
+cache = ResponseCache(settings.cache_dir)
 
 # Test 1: Check that the backup model works on its own.
 print("--- Test 1: Backup model directly ---")
@@ -26,6 +28,7 @@ result = call_with_fallback(
     client,
     settings,
     "Reply with exactly: ok",
+    cache,
 )
 print(result)
 
@@ -38,5 +41,6 @@ result = call_with_fallback(
     client,
     settings,
     "Reply with exactly: ok",
+    cache,
 )
 print(result)

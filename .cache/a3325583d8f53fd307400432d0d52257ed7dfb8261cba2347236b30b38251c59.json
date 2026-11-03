@@ -1,0 +1,8 @@
+{
+    "text": "ok",
+    "model": "gemini-3.5-flash-lite",
+    "input_tokens": 6,
+    "output_tokens": 1,
+    "thought_tokens": 0,
+    "latency_s": 1.8441907089436427
+}
