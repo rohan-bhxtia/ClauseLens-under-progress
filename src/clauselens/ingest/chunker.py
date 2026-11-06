@@ -21,6 +21,8 @@ def groupBlocks_toClauses(blocks: list[Block_format]) -> list[Clause_format]:
         if not current_text:
             return
 
+        # appending the vlovk list 
+
         clauses.append(
             Clause_format(
                 number=current_number,
