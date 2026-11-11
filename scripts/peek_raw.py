@@ -19,4 +19,4 @@ for number in range(1, 6):
     print(f"Saved {output}")
 
 
-# we did found a bug .. rupees symbol is coming as "n" .. which we need to make fine 
+# we did found a bug .. rupees symbol is coming as "n" .. which we need to make fine x
