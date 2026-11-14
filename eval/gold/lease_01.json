@@ -6,7 +6,6 @@
     "line": "RESIDENTIAL RENTAL AGREEMENT",
     "page": 1
   },
-  // "code"
   "monthly_rent": {
     "status": "found",
     "answer": 25000,
